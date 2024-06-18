@@ -3,6 +3,62 @@ let operand1;
 let operand2;
 let operator;
 
+hookUpButtons();
+
+/**
+ * Hook up the addEventListener functions for each button
+ * @returns nothing
+ */
+function hookUpButtons() {
+    const numberButtons = document.querySelectorAll(".numberButton");
+    numberButtons.forEach((btn) => btn.addEventListener("click", handleNumberButton));
+
+    const operatorButtons = document.querySelectorAll(".operatorButton");
+    operatorButtons.forEach((btn) => btn.addEventListener("click", handleOperatorButton));
+
+    const actionButtons = document.querySelectorAll(".actionButton");
+    actionButtons.forEach((btn) => btn.addEventListener("click", handleActionButton));
+
+    const equalButton = document.querySelector(".equalButton");
+    equalButton.addEventListener("click", handleEqualButton);
+    return;
+}
+
+/**
+ * Performs action based on clicking a number button
+ * 0 1 2 3 4 5 6 7 8 9 .
+ * @param {Event} e 
+ */
+function handleNumberButton(e) {
+    console.log(e.target.value);
+}
+
+/**
+ * Performs action based on clicking an operator button
+ * + - * /
+ * @param {Event} e 
+ */
+function handleOperatorButton(e) {
+    console.log(e.target.value);
+}
+
+/**
+ * Performs action based on clicking an action button
+ * AC % +/-
+ * @param {Event} e 
+ */
+function handleActionButton(e) {
+    console.log(e.target.value);
+}
+
+/**
+ * Performs action based on clicking the equal button
+ * @param {Event} e 
+ */
+function handleEqualButton(e) {
+    console.log(e.target.value);
+}
+
 /**
  * Calls the appropriate function based on the operator passed in
  * @param {Number} a 
