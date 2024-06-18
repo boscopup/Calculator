@@ -27,6 +27,7 @@ function hookUpButtons() {
 }
 
 function changeDisplay() {
+    fitDisplay();
     document.querySelector("#entryScreen").textContent = displayValue;
 }
 
@@ -79,9 +80,82 @@ function handleOperatorButton(e) {
  * @param {Event} e 
  */
 function handleActionButton(e) {
-    console.log(e.target.value);
+    const value = e.target.value;
+    console.log(value);
+
+    switch (value) {
+        case "clear":
+            // Clear the screen
+            displayValue = "0";
+            break;
+        case "percent":
+            // Change displayed value to a percent
+            if (displayValue == "0") {
+                // Ignore it
+                return;
+            } else {
+                let numberValue = parseFloat(displayValue);
+                numberValue = numberValue / 100;
+                displayValue = numberValue.toString();
+            }
+            break;
+        case "sign":
+            if (displayValue[0] == "-") {
+                displayValue = displayValue.slice(1);
+            } else {
+                displayValue = `-${displayValue}`;
+            }
+            break;
+            // Change displayed value to its negation
+    }
+    changeDisplay();
 }
 
+/**
+ * Makes the displayed number fit the 10 character size limit
+ */
+function fitDisplay() {
+    // Make sure it fits the 10 character display
+    while (displayValue.length > 10) {
+        let number = parseFloat(displayValue);
+        let precision = 10;
+        if (displayValue.includes("e")) {
+            let exponentSection = displayValue.slice(displayValue.indexOf("e"));
+            precision = precision - exponentSection.length;
+        }
+        // If the number starts with 0, then it is 0.#####. Calculate how many
+        // characters include 0 or . at the beginning (eg, 0.000123) and subtract
+        // that amount from precision. The toPrecision function doesn't include
+        // leading zeros in its precision.
+        if (displayValue[0] == "0" || (displayValue[0] == "-" && displayValue[1] == "0")) {
+            let i;
+            // If the number is negative, we need to start looping at index 1
+            displayValue[0] == "-" ? i = 1 : i = 0;
+            while (true) {
+                if (displayValue[i] == "0" || displayValue[i] == ".") {
+                    precision--;
+                    i++;
+                } else {
+                    break;
+                }
+            }
+        } else if (displayValue.includes(".")) {    // Number doesn't start with 0 but has decimal (eg, 1.2)
+            precision--;
+        }
+        if (displayValue[0] == "-") {
+            precision--;
+        }
+        // Include room for decimal, exponents, negation sign
+        number = number.toPrecision(precision);
+
+        // Strip zeros off end if decimal number, eg 1.200000
+        if (number.toString().includes(".") && !number.toString().includes("e")) {
+            number = parseFloat(number);
+        }
+        console.log(number);
+        displayValue = number.toString(); // -0.0000123460000
+    }
+}
 /**
  * Performs action based on clicking the equal button
  * @param {Event} e 
