@@ -207,8 +207,31 @@ function fitDisplay() {
  * Performs action based on clicking the equal button
  * @param {Event} e 
  */
-function handleEqualButton(e) {
-    console.log(e.target.value);
+function handleEqualButton() {
+    console.log("=");
+
+    if (displayValue == DIVIDE_BY_ZERO_ERROR) {
+        displayValue = "0";
+    } else  if (loadingOperand == true) {
+        if (operator == null) {
+            // Do nothing
+            return;
+        } else {
+            const operand2 = parseFloat(displayValue);
+            try {
+                operand1 = operate(operand1, operand2, operator);  // result
+                operator = null;
+                displayValue = operand1.toString();
+            } catch (e) {
+                if (e.message == DIVIDE_BY_ZERO_ERROR) {
+                    displayValue = DIVIDE_BY_ZERO_ERROR;
+                }
+            }
+        }
+    } else {
+        return;
+    }
+    changeDisplay();
 }
 
 function clearScreen() {
