@@ -26,9 +26,8 @@ function hookUpButtons() {
     return;
 }
 
-function changeDisplay(text) {
-    document.querySelector("#entryScreen").textContent = text;
-    displayValue = text;
+function changeDisplay() {
+    document.querySelector("#entryScreen").textContent = displayValue;
 }
 
 /**
@@ -37,7 +36,32 @@ function changeDisplay(text) {
  * @param {Event} e 
  */
 function handleNumberButton(e) {
-    console.log(e.target.value);
+    value = e.target.value;
+    console.log(value);
+
+    if (value == ".") {
+        // Check to see if a decimal is already displayed
+        if (displayValue.includes(".")) {
+            // ignore
+            return;
+        } else {
+            displayValue = displayValue + value;
+        }
+    } else {
+        // Check length of current string (limit 10 characters)
+        if (displayValue.length == 10) {
+            return; // Ignore the number pressed
+        } else {
+            if (displayValue == "0") {
+                // Replace number with new number
+                displayValue = value;
+            } else {
+                // Add the number to the string
+                displayValue = displayValue + value;
+            }
+        }
+    }
+    changeDisplay();
 }
 
 /**
