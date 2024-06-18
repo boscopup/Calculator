@@ -1,0 +1,71 @@
+html {
+    background-color: rgb(53, 53, 53);
+}
+main {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container {
+    border: solid 5px black;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+}
+
+#entryScreen {
+    border: solid 1px black;
+    padding 2px;
+    text-align: right;
+    font-family: "Orbitron", sans-serif;
+    font-size: 48px;
+    background-color: rgb(171, 177, 182);
+    box-shadow: inset 9px 10px 3px -7px rgba(0,0,0,0.75);
+}
+
+.calculatorRow {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.calculatorRow button {
+    flex-grow: 1;
+    width: 25%;
+    aspect-ratio: 1/1;
+    font-size: 36px;
+    border: 0;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+    box-sizing: border-box;
+    color: #fff;
+    margin: 2px;
+    padding: 10px 15px;
+    text-align: center;
+}
+
+#ac {
+    flex-grow: 2;
+    width: 52%; /* add 2% to account for lack of interior border */
+    aspect-ratio: 2/1;
+}
+
+.numberButton {
+    background-image: linear-gradient(#85a9db, #4d6d9a);
+}
+
+.operatorButton {
+    background-image: linear-gradient(#91c4e5, #3a7ba7);
+}
+
+.actionButton {
+    background-image: linear-gradient(#88d9e0,#21a2ad);
+}
+
+.equalButton {
+    background-image: linear-gradient(#ebacb6, #ca6779)
+}

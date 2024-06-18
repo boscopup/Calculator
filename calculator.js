@@ -66,7 +66,7 @@ function multiply(a, b) {
  */
 function divide(a, b) {
     if (b == 0) {
-        throw new Error("You can't defy the laws of math!");
+        throw new Error("YOU FOOL!");
     } else {
         return a/b;
     }
