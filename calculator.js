@@ -1,10 +1,11 @@
 // Global variables
-let operand1;
-let operand2;
-let operator;
+let operand1 = null;
+let operator = null;
+let loadingOperand = true;
 let displayValue = "0";
+const DIVIDE_BY_ZERO_ERROR = "YOU FOOL!";
 
-changeDisplay(displayValue);
+changeDisplay();
 hookUpButtons();
 
 /**
@@ -40,6 +41,20 @@ function handleNumberButton(e) {
     value = e.target.value;
     console.log(value);
 
+    // Clear any error message
+    if (displayValue == DIVIDE_BY_ZERO_ERROR) {
+        displayValue = "0";
+    }
+
+    // Reset display if not loading an operand
+    if (!loadingOperand) {
+        displayValue = "0";
+
+    }
+    loadingOperand = true;
+
+    // If there is an operator, the screen needs to be replaced
+
     if (value == ".") {
         // Check to see if a decimal is already displayed
         if (displayValue.includes(".")) {
@@ -48,7 +63,7 @@ function handleNumberButton(e) {
         } else {
             displayValue = displayValue + value;
         }
-    } else {
+    } else { 
         // Check length of current string (limit 10 characters)
         if (displayValue.length == 10) {
             return; // Ignore the number pressed
@@ -71,7 +86,39 @@ function handleNumberButton(e) {
  * @param {Event} e 
  */
 function handleOperatorButton(e) {
-    console.log(e.target.value);
+    // If there is an error message, clear that out and
+    // reset global variables.
+    if (displayValue == DIVIDE_BY_ZERO_ERROR) {
+        displayValue = "0";
+        operand1 = null;
+        operand2 = null;
+        operator = null;
+        loadingOperand = true;
+        changeDisplay();
+        return;
+    }
+    const value = e.target.value;
+    console.log(value);
+
+    // User has done one operation already and is doing more
+    // on that result. eg, 1 + 2 +...
+    if (operator) {
+        const operand2 = parseFloat(displayValue);
+        try {
+            operand1 = operate(operand1, operand2, operator);  // result
+            operator = value;
+            displayValue = operand1.toString();
+        } catch (e) {
+            if (e.message == DIVIDE_BY_ZERO_ERROR) {
+                displayValue = DIVIDE_BY_ZERO_ERROR;
+            }
+        }
+    } else {
+        operator = value;
+        operand1 = parseFloat(displayValue);
+    }
+    loadingOperand = false;
+    changeDisplay();
 }
 
 /**
@@ -86,7 +133,7 @@ function handleActionButton(e) {
     switch (value) {
         case "clear":
             // Clear the screen
-            displayValue = "0";
+            clearScreen();
             break;
         case "percent":
             // Change displayed value to a percent
@@ -164,6 +211,12 @@ function handleEqualButton(e) {
     console.log(e.target.value);
 }
 
+function clearScreen() {
+    displayValue = "0";
+    operand1 = null;
+    operand2 = null;
+    operator = null;
+}
 /**
  * Calls the appropriate function based on the operator passed in
  * @param {Number} a 
@@ -227,7 +280,7 @@ function multiply(a, b) {
  */
 function divide(a, b) {
     if (b == 0) {
-        throw new Error("YOU FOOL!");
+        throw new Error(DIVIDE_BY_ZERO_ERROR);
     } else {
         return a/b;
     }
