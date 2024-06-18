@@ -2,7 +2,9 @@
 let operand1;
 let operand2;
 let operator;
+let displayValue = "0";
 
+changeDisplay(displayValue);
 hookUpButtons();
 
 /**
@@ -22,6 +24,11 @@ function hookUpButtons() {
     const equalButton = document.querySelector(".equalButton");
     equalButton.addEventListener("click", handleEqualButton);
     return;
+}
+
+function changeDisplay(text) {
+    document.querySelector("#entryScreen").textContent = text;
+    displayValue = text;
 }
 
 /**

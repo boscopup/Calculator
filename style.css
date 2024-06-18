@@ -18,6 +18,7 @@ main {
 }
 
 #entryScreen {
+    min-width: 364px;
     border: solid 1px black;
     padding 2px;
     text-align: right;
