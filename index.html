@@ -4,9 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./calculator.js" defer></script>
-    <title>Document</title>
+    <title>Calculator</title>
 </head>
 <body>
-    Open Console
+<main id = "calculator">
+    <div id="container">
+        <div id="entryScreen">1234567890</div>
+        <div id="row1" class="calculatorRow">
+            <button type="button" id="ac" class="actionButton" value="clear">AC</button>
+            <button type="button" id="percent" class="actionButton" value="percent">%</button>
+            <button type="button" id="divide" class="operatorButton" value="/">/</button>
+        </div>
+        <div id="row2" class="calculatorRow">
+            <button type="button" id="seven" class="numberButton" value="7">7</button>
+            <button type="button" id="eight" class="numberButton" value="8">8</button>
+            <button type="button" id="nine" class="numberButton" value="9">9</button>
+            <button type="button" id="multiply" class="operatorButton" value="*">*</button>
+        </div>
+        <div id="row3" class="calculatorRow">
+            <button type="button" id="four" class="numberButton" value="4">4</button>
+            <button type="button" id="five" class="numberButton" value="5">5</button>
+            <button type="button" id="six" class="numberButton" value="6">6</button>
+            <button type="button" id="minus" class="operatorButton" value="-">-</button>
+        </div>
+        <div id="row4" class="calculatorRow">
+            <button type="button" id="one" class="numberButton" value="1">1</button>
+            <button type="button" id="two" class="numberButton" value="2">2</button>
+            <button type="button" id="three" class="numberButton" value="3">3</button>
+            <button type="button" id="plus" class="operatorButton" value="+">+</button>
+        </div>
+        <div id="row5" class="calculatorRow">
+            <button type="button" id="sign" class="actionButton" value="sign">+/-</button>
+            <button type="button" id="zero" class="numberButton" value="0">0</button>
+            <button type="button" id="decimal" class="numberButton" value=".">.</button>
+            <button type="button" id="equal" class="equalButton" value="=">=</button>
+        </div>
+    </div>
+</main>
 </body>
 </html>
